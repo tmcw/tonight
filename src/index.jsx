@@ -1,18 +1,21 @@
 /** @jsx React.DOM */
 var Show = React.createClass({
   render: function() {
+    /*jshint ignore:start */
     return (
-      <div className="comment">
-        <h2 className="commentAuthor">
+      <div className="show pad1">
+        <h2 className="showTitle">
           {this.props.title}
         </h2>
       </div>
     );
+    /*jshint ignore:end */
   }
 });
 
 var ShowList = React.createClass({
   render: function() {
+    /*jshint ignore:start */
     var showNodes = this.props.data.map(function(show) {
         return <Show title={show.title}></Show>;
     });
@@ -21,6 +24,7 @@ var ShowList = React.createClass({
           {showNodes}
         </div>
     );
+    /*jshint ignore:end */
   }
 });
 
