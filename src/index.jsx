@@ -1,15 +1,28 @@
 /* ex: set tabstop=2 shiftwidth=2 expandtab: */
+var sources = require('tonight-sources').sources;
+
+var sourceMap = {};
+
+sources.features.forEach(function(feat) {
+  sourceMap[feat.properties.id] = feat;
+});
+
+React.initializeTouchEvents(true);
+
 /** @jsx React.DOM */
 var Show = React.createClass({
   render: function() {
-    /*jshint ignore:start */
-    var cx = React.addons.classSet;
     var show = this.props.show;
-    var classes = cx({
-      allages: this.props.show.minage === 0,
-      show: true,
-      even: this.props.even
-    });
+
+    var bg = '#000';
+    if (sourceMap[this.props.show.venue_id]) {
+      bg = sourceMap[this.props.show.venue_id].properties.color || '#000';
+    }
+
+    var inlineStyle = {
+      backgroundColor: bg
+    };
+
     var priceFormatted = '?';
     if (this.props.show.prices && this.props.show.prices.length) {
       var bestPrice = this.props.show.prices.filter(function(price) {
@@ -21,20 +34,67 @@ var Show = React.createClass({
         priceFormatted = bestPrice.price;
       }
     }
+
+    var soundcloud = (this.props.show.soundcloud && this.props.show.soundcloud.length) &&
+      this.props.show.soundcloud[0];
+    var youtube = (this.props.show.soundcloud && this.props.show.soundcloud.length) &&
+      this.props.show.youtube[0];
+
+    var ages = '';
+    if (this.props.show.minage === 0) ages = 'all ages';
+    if (this.props.show.minage) ages = this.props.show.minage + '+';
+
+    /*jshint ignore:start */
     return (
-      <div className={classes}>
-        <div className='gutter'>
-          {priceFormatted ? <div className='dollar quiet'>$</div> : '' }
-          {priceFormatted ? <div className='dollar-value'>{priceFormatted}</div> : '' }
-        </div>
+      <div style={inlineStyle} className='show'>
         <div className='prose pad1'>
           <h2 className="showTitle">
-            {this.props.show.title}
+            <a href={this.props.show.url}>{this.props.show.title}</a>
           </h2>
         </div>
+        <div className='pad1'>
+          {priceFormatted ?
+            <span className='button small'>${priceFormatted}</span> : '' }
+          {soundcloud ?
+            <span className='button small'><a href={soundcloud}>soundcloud</a></span> : '' }
+          {youtube ?
+            <span className='button small'><a href={youtube}>youtube</a></span> : '' }
+          {ages ?
+            <span className='button small'>{ages}</span> : '' }
+          </div>
+        </div>
+    );
+    /*jshint ignore:end */
+  }
+});
+
+var Drawer = React.createClass({
+  render: function() {
+    /*jshint ignore:start */
+    return (
+      <div>
+        <h2 className='pad1'>TONIGHT</h2>
+        <AgeToggle />
       </div>
     );
     /*jshint ignore:end */
+  }
+});
+
+var AgeToggle = React.createClass({
+  getInitialState: function() {
+    return { checked: false };
+  },
+  handleChange: function(event) {
+    this.setState({ checked: event.target.value });
+  },
+  render: function() {
+    return (
+      <div className='pad1'>
+        <input type='checkbox' onChange={this.handleChange} name='allages-toggle' />
+        <label for='allages-toggle'>ALL AGES</label>
+      </div>
+    );
   }
 });
 
@@ -81,3 +141,16 @@ React.renderComponent(
   /*jshint ignore:end */
   document.getElementById('content')
 );
+
+React.renderComponent(
+  /*jshint ignore:start */
+  <Drawer />,
+  /*jshint ignore:end */
+  document.getElementById('drawer')
+);
+
+var snapper = new Snap({
+  element: document.getElementById('content'),
+  disable: 'right',
+  maxPosition:150
+});
