@@ -119,11 +119,8 @@ var ShowList = React.createClass({
   },
   render: function() {
     /*jshint ignore:start */
-    var even = true;
     var showNodes = this.state.data.map(function(show) {
-      even = !even;
       return <Show
-        even={even}
         show={show}></Show>;
     });
     return (
