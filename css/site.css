@@ -1,7 +1,7 @@
 body {
     background:#222;
     font-family: 'Lato', sans-serif;
-    color:#ccc;
+    color:#eee;
 }
 
 a {
@@ -15,7 +15,8 @@ a {
 
 div.show {
     width:100%;
-    padding-bottom:10px;
+    border-top:1px solid rgba(255, 255, 255, 0.1);
+    border-bottom:1px solid rgba(0, 0, 0, 0.1);
 }
 
 #content h2 {
@@ -27,10 +28,26 @@ div.show {
 }
 
 .button {
-    padding:5px;
+    padding-right:10px;
     text-transform:uppercase;
 }
 
 .small {
     font-size:13px;
+}
+
+.inset {
+}
+
+.round {
+    font-size:small;
+    padding:4px;
+    border-radius:3px;
+}
+
+.dark {
+}
+
+.float-right {
+    float:right;
 }

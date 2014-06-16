@@ -15,8 +15,10 @@ var Show = React.createClass({
     var show = this.props.show;
 
     var bg = '#000';
+    var venue = {};
     if (sourceMap[this.props.show.venue_id]) {
       bg = sourceMap[this.props.show.venue_id].properties.color || '#000';
+      venue = sourceMap[this.props.show.venue_id];
     }
 
     var inlineStyle = {
@@ -46,13 +48,12 @@ var Show = React.createClass({
 
     /*jshint ignore:start */
     return (
-      <div style={inlineStyle} className='show'>
-        <div className='prose pad1'>
-          <h2 className="showTitle">
-            <a href={this.props.show.url}>{this.props.show.title}</a>
-          </h2>
-        </div>
-        <div className='pad1'>
+      <div style={inlineStyle} className='show pad1'>
+        <VenuePeek title={venue.properties.shortname} />
+        <h2 className='showTitle'>
+          <a href={this.props.show.url}>{this.props.show.title}</a>
+        </h2>
+        <div className='pad0y'>
           {priceFormatted ?
             <span className='button small'>${priceFormatted}</span> : '' }
           {soundcloud ?
@@ -61,8 +62,8 @@ var Show = React.createClass({
             <span className='button small'><a href={youtube}>youtube</a></span> : '' }
           {ages ?
             <span className='button small'>{ages}</span> : '' }
-          </div>
         </div>
+      </div>
     );
     /*jshint ignore:end */
   }
@@ -76,6 +77,18 @@ var Drawer = React.createClass({
         <h2 className='pad1'>TONIGHT</h2>
         <AgeToggle />
       </div>
+    );
+    /*jshint ignore:end */
+  }
+});
+
+var VenuePeek = React.createClass({
+  render: function() {
+    /*jshint ignore:start */
+    return (
+      <span className='inset round dark float-right'>
+        {this.props.title}
+      </span>
     );
     /*jshint ignore:end */
   }
