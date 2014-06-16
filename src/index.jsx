@@ -48,20 +48,25 @@ var Show = React.createClass({
 
     /*jshint ignore:start */
     return (
-      <div style={inlineStyle} className='show pad1'>
-        <VenuePeek title={venue.properties.shortname} />
-        <h2 className='showTitle'>
-          <a href={this.props.show.url}>{this.props.show.title}</a>
-        </h2>
-        <div className='pad0y'>
-          {priceFormatted ?
-            <span className='button small'>${priceFormatted}</span> : '' }
-          {soundcloud ?
-            <span className='button small'><a href={soundcloud}>soundcloud</a></span> : '' }
-          {youtube ?
-            <span className='button small'><a href={youtube}>youtube</a></span> : '' }
-          {ages ?
-            <span className='button small'>{ages}</span> : '' }
+      <div style={inlineStyle} className='show'>
+        <div className='pad1'>
+          <h2 className='showTitle'>
+            <a href={this.props.show.url}>{this.props.show.title}</a>
+          </h2>
+          <div class='pad0y'>
+            <VenuePeek title={venue.properties.shortname} />
+            <TimeBlock times={this.props.show.times} />
+          </div>
+          <div className='pad0y'>
+            {priceFormatted ?
+              <span className='button small'>${priceFormatted}</span> : '' }
+            {soundcloud ?
+              <span className='button small'><a href={soundcloud}>soundcloud</a></span> : '' }
+            {youtube ?
+              <span className='button small'><a href={youtube}>youtube</a></span> : '' }
+            {ages ?
+              <span className='button small'>{ages}</span> : '' }
+          </div>
         </div>
       </div>
     );
@@ -82,11 +87,36 @@ var Drawer = React.createClass({
   }
 });
 
+var TimeBlock = React.createClass({
+  render: function() {
+    if (this.props.times && this.props.times.length) {
+      var firstTime = this.props.times[0];
+      var t = moment(firstTime.stamp);
+      var formatted = (firstTime.label || '') + ' ' + t.format('h:mma');
+      /*jshint ignore:start */
+      return (
+        <span>
+          {formatted}
+        </span>
+      );
+      /*jshint ignore:end */
+    } else {
+      /*jshint ignore:start */
+      return (
+        <span>
+          ?
+        </span>
+      );
+      /*jshint ignore:end */
+    }
+  }
+});
+
 var VenuePeek = React.createClass({
   render: function() {
     /*jshint ignore:start */
     return (
-      <span className='inset round dark float-right'>
+      <span className='venue-peek'>
         {this.props.title}
       </span>
     );

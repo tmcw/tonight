@@ -51,3 +51,15 @@ div.show {
 .float-right {
     float:right;
 }
+
+.center {
+    text-align:center;
+}
+
+.quiet {
+    opacity:0.7;
+}
+
+.venue-peek {
+    margin-right:10px;
+}
