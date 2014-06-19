@@ -20,11 +20,9 @@ div.show {
 }
 
 #content h2 {
-    font-family: 'Lato', sans-serif;
-    font-weight:300;
-    font-size:30px;
     overflow:hidden;
     color:#eee;
+    line-height:22px;
 }
 
 .button {
@@ -33,7 +31,7 @@ div.show {
 }
 
 .small {
-    font-size:13px;
+    font-size:small;
 }
 
 .inset {
@@ -46,6 +44,8 @@ div.show {
 }
 
 .dark {
+    background:rgba(0, 0, 0, 0.3);
+    color:#eee;
 }
 
 .float-right {

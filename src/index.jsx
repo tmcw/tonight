@@ -49,11 +49,12 @@ var Show = React.createClass({
     /*jshint ignore:start */
     return (
       <div style={inlineStyle} className='show'>
+        <DateBlock times={this.props.show.times} />
         <div className='pad1'>
           <h2 className='showTitle'>
             <a href={this.props.show.url}>{this.props.show.title}</a>
           </h2>
-          <div class='pad0y'>
+          <div className='pad0y'>
             <VenuePeek title={venue.properties.shortname} />
             <TimeBlock times={this.props.show.times} />
           </div>
@@ -84,6 +85,31 @@ var Drawer = React.createClass({
       </div>
     );
     /*jshint ignore:end */
+  }
+});
+
+var DateBlock = React.createClass({
+  render: function() {
+    if (this.props.times && this.props.times.length) {
+      var firstTime = this.props.times[0];
+      var t = moment(firstTime.stamp);
+      var formatted = t.format('ddd MMM D').toUpperCase();
+      /*jshint ignore:start */
+      return (
+        <div className='dark pad1 small'>
+          {formatted}
+        </div>
+      );
+      /*jshint ignore:end */
+    } else {
+      /*jshint ignore:start */
+      return (
+        <div className='date-block'>
+          ?
+        </div>
+      );
+      /*jshint ignore:end */
+    }
   }
 });
 
@@ -135,7 +161,7 @@ var AgeToggle = React.createClass({
     return (
       <div className='pad1'>
         <input type='checkbox' onChange={this.handleChange} name='allages-toggle' />
-        <label for='allages-toggle'>ALL AGES</label>
+        <label htmlFor='allages-toggle'>ALL AGES</label>
       </div>
     );
   }
@@ -161,6 +187,11 @@ var ShowList = React.createClass({
     this.loadShowsFromServer();
   },
   render: function() {
+    this.state.data.sort(function(a, b) {
+      if (a.times.length && b.times.length) {
+        return a.times[0].stamp - b.times[0].stamp;
+      }
+    });
     /*jshint ignore:start */
     var showNodes = this.state.data.map(function(show) {
       return <Show
