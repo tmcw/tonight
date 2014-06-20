@@ -48,33 +48,20 @@ var Show = React.createClass({
 
     /*jshint ignore:start */
     return (
-      <div style={inlineStyle} className='show clearfix'>
-        <div className='col2 pad1y'>
+      <div style={inlineStyle} className='show'>
+        <div className='left-gutter pad1y'>
           <h3 className='align-right'>
             <TimeBlock times={this.props.show.times} />
           </h3>
         </div>
-        <div className='pad1 col10'>
+        <div className='right-content pad1'>
           <h2 className='showTitle'>
-            <a href={this.props.show.url}>{this.props.show.title}</a>
+            {this.props.show.title}
           </h2>
           <div className='pad0y'>
             <VenuePeek title={venue.properties.shortname} />
           </div>
         </div>
-      </div>
-    );
-    /*jshint ignore:end */
-  }
-});
-
-var Drawer = React.createClass({
-  render: function() {
-    /*jshint ignore:start */
-    return (
-      <div>
-        <h2 className='pad1'>TONIGHT</h2>
-        <AgeToggle />
       </div>
     );
     /*jshint ignore:end */
@@ -201,20 +188,7 @@ var ShowList = React.createClass({
 
 React.renderComponent(
   /*jshint ignore:start */
-  <ShowList url="example.json" />,
+  <ShowList url='example.json' />,
   /*jshint ignore:end */
   document.getElementById('content')
 );
-
-React.renderComponent(
-  /*jshint ignore:start */
-  <Drawer />,
-  /*jshint ignore:end */
-  document.getElementById('drawer')
-);
-
-var snapper = new Snap({
-  element: document.getElementById('content'),
-  disable: 'right',
-  maxPosition:150
-});
