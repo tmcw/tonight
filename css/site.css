@@ -15,14 +15,22 @@ a {
 
 div.show {
     width:100%;
-    border-top:1px solid rgba(255, 255, 255, 0.1);
-    border-bottom:1px solid rgba(0, 0, 0, 0.1);
 }
 
 #content h2 {
     overflow:hidden;
     color:#eee;
-    line-height:22px;
+    font-weight:900;
+}
+
+#content h3 {
+    font-weight:700;
+    padding-top:5px;
+    line-height:30px;
+}
+
+.align-right {
+    text-align:right;
 }
 
 .button {

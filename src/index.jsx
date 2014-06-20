@@ -48,25 +48,18 @@ var Show = React.createClass({
 
     /*jshint ignore:start */
     return (
-      <div style={inlineStyle} className='show'>
-        <DateBlock times={this.props.show.times} />
-        <div className='pad1'>
+      <div style={inlineStyle} className='show clearfix'>
+        <div className='col2 pad1y'>
+          <h3 className='align-right'>
+            <TimeBlock times={this.props.show.times} />
+          </h3>
+        </div>
+        <div className='pad1 col10'>
           <h2 className='showTitle'>
             <a href={this.props.show.url}>{this.props.show.title}</a>
           </h2>
           <div className='pad0y'>
             <VenuePeek title={venue.properties.shortname} />
-            <TimeBlock times={this.props.show.times} />
-          </div>
-          <div className='pad0y'>
-            {priceFormatted ?
-              <span className='button small'>${priceFormatted}</span> : '' }
-            {soundcloud ?
-              <span className='button small'><a href={soundcloud}>soundcloud</a></span> : '' }
-            {youtube ?
-              <span className='button small'><a href={youtube}>youtube</a></span> : '' }
-            {ages ?
-              <span className='button small'>{ages}</span> : '' }
           </div>
         </div>
       </div>
@@ -118,7 +111,7 @@ var TimeBlock = React.createClass({
     if (this.props.times && this.props.times.length) {
       var firstTime = this.props.times[0];
       var t = moment(firstTime.stamp);
-      var formatted = (firstTime.label || '') + ' ' + t.format('h:mma');
+      var formatted = t.minutes() ? t.format('h:mm') : t.format('h');
       /*jshint ignore:start */
       return (
         <span>
