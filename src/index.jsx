@@ -130,23 +130,6 @@ var VenuePeek = React.createClass({
   }
 });
 
-var AgeToggle = React.createClass({
-  getInitialState: function() {
-    return { checked: false };
-  },
-  handleChange: function(event) {
-    this.setState({ checked: event.target.value });
-  },
-  render: function() {
-    return (
-      <div className='pad1'>
-        <input type='checkbox' onChange={this.handleChange} name='allages-toggle' />
-        <label htmlFor='allages-toggle'>ALL AGES</label>
-      </div>
-    );
-  }
-});
-
 var ShowList = React.createClass({
   loadShowsFromServer: function() {
     $.ajax({
