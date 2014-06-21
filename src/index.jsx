@@ -1,4 +1,7 @@
 /* ex: set tabstop=2 shiftwidth=2 expandtab: */
+
+React.addons.injectTapEventPlugin();
+
 var sources = require('tonight-sources').sources;
 
 var sourceMap = {};
@@ -11,6 +14,10 @@ React.initializeTouchEvents(true);
 
 /** @jsx React.DOM */
 var Show = React.createClass({
+  _cancelTouch: false,
+  onTouchTap: function(event) {
+    alert('hi');
+  },
   render: function() {
     var show = this.props.show;
 
@@ -48,7 +55,10 @@ var Show = React.createClass({
 
     /*jshint ignore:start */
     return (
-      <div style={inlineStyle} className='show'>
+      <div
+        onTouchTap={this.onTouchTap}
+        style={inlineStyle}
+        className='show'>
         <div className='left-gutter pad1y'>
           <h3 className='align-right'>
             <TimeBlock times={this.props.show.times} />
@@ -70,26 +80,19 @@ var Show = React.createClass({
 
 var DateBlock = React.createClass({
   render: function() {
+    var formatted = '?';
     if (this.props.times && this.props.times.length) {
       var firstTime = this.props.times[0];
       var t = moment(firstTime.stamp);
-      var formatted = t.format('ddd MMM D').toUpperCase();
-      /*jshint ignore:start */
-      return (
-        <div className='dark pad1 small'>
-          {formatted}
-        </div>
-      );
-      /*jshint ignore:end */
-    } else {
-      /*jshint ignore:start */
-      return (
-        <div className='date-block'>
-          ?
-        </div>
-      );
-      /*jshint ignore:end */
+      formatted = t.format('ddd MMM D').toUpperCase();
     }
+    /*jshint ignore:start */
+    return (
+      <div className='dark pad1 small'>
+        {formatted}
+      </div>
+    );
+    /*jshint ignore:end */
   }
 });
 
