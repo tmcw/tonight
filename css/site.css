@@ -5,6 +5,7 @@ div {
 body {
     background:#222;
     font-family: 'Helvetica Neue', sans-serif;
+    font-size:15px;
     color:#eee;
 }
 
@@ -20,7 +21,7 @@ a {
 div.show {
     width:320px;
     position:relative;
-    height:80px;
+    height:75px;
 }
 
 #content h2 {
@@ -32,51 +33,11 @@ div.show {
 
 #content h3 {
     font-weight:700;
-    padding-top:5px;
     line-height:30px;
 }
 
 .align-right {
     text-align:right;
-}
-
-.button {
-    padding-right:10px;
-    text-transform:uppercase;
-}
-
-.small {
-    font-size:small;
-}
-
-.inset {
-}
-
-.round {
-    font-size:small;
-    padding:4px;
-    border-radius:3px;
-}
-
-.dark {
-    background:rgba(0, 0, 0, 0.3);
-    color:#eee;
-}
-
-.float-right {
-    float:right;
-}
-
-.center {
-    text-align:center;
-}
-
-.quiet {
-    opacity:0.7;
-}
-
-.venue-peek {
-    margin-right:10px;
 }
 
 .left-gutter {
