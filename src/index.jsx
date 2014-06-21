@@ -20,38 +20,8 @@ var Show = React.createClass({
   },
   render: function() {
     var show = this.props.show;
-
     var bg = '#000';
-    var venue = {};
-    if (sourceMap[this.props.show.venue_id]) {
-      bg = sourceMap[this.props.show.venue_id].properties.color || '#000';
-      venue = sourceMap[this.props.show.venue_id];
-    }
-
-    var inlineStyle = {
-      backgroundColor: bg
-    };
-
-    var priceFormatted = '?';
-    if (this.props.show.prices && this.props.show.prices.length) {
-      var bestPrice = this.props.show.prices.filter(function(price) {
-        return price.type === 'door';
-      });
-      if (!bestPrice.length) bestPrice = this.props.show.prices[0];
-      else bestPrice = bestPrice[0];
-      if (bestPrice) {
-        priceFormatted = bestPrice.price;
-      }
-    }
-
-    var soundcloud = (this.props.show.soundcloud && this.props.show.soundcloud.length) &&
-      this.props.show.soundcloud[0];
-    var youtube = (this.props.show.soundcloud && this.props.show.soundcloud.length) &&
-      this.props.show.youtube[0];
-
-    var ages = '';
-    if (this.props.show.minage === 0) ages = 'all ages';
-    if (this.props.show.minage) ages = this.props.show.minage + '+';
+    var inlineStyle = { backgroundColor: show.venue.properties.color };
 
     /*jshint ignore:start */
     return (
@@ -61,15 +31,15 @@ var Show = React.createClass({
         className='show'>
         <div className='left-gutter pad1y'>
           <h3 className='align-right'>
-            <TimeBlock times={this.props.show.times} />
+            <TimeBlock times={show.times} />
           </h3>
         </div>
         <div className='right-content pad1'>
           <h2 className='showTitle'>
-            {this.props.show.title}
+            {show.title}
           </h2>
           <div className='pad0y'>
-            <VenuePeek title={venue.properties.shortname} />
+            {show.venue.properties.name}
           </div>
         </div>
       </div>
@@ -98,38 +68,18 @@ var DateBlock = React.createClass({
 
 var TimeBlock = React.createClass({
   render: function() {
+    var formatted = '?';
     if (this.props.times && this.props.times.length) {
       var firstTime = this.props.times[0];
       var t = moment(firstTime.stamp);
-      var formatted = t.minutes() ? t.format('h:mm') : t.format('h');
-      /*jshint ignore:start */
-      return (
-        <span>
-          {formatted}
-        </span>
-      );
-      /*jshint ignore:end */
-    } else {
-      /*jshint ignore:start */
-      return (
-        <span>
-          ?
-        </span>
-      );
-      /*jshint ignore:end */
+      formatted = t.minutes() ? t.format('h:mm') : t.format('h');
     }
-  }
-});
-
-var VenuePeek = React.createClass({
-  render: function() {
     /*jshint ignore:start */
     return (
-      <span className='venue-peek'>
-        {this.props.title}
+      <span>
+        {formatted}
       </span>
     );
-    /*jshint ignore:end */
   }
 });
 
@@ -139,6 +89,9 @@ var ShowList = React.createClass({
       url: this.props.url,
       dataType: 'json',
       success: function(data) {
+        data.forEach(function(show) {
+          show.venue = sourceMap[show.venue_id];
+        });
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
