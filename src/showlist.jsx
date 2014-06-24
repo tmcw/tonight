@@ -1,21 +1,24 @@
-var Show = require('./show.jsx'),
-    sources = require('./sources');
+/* ex: set tabstop=2 shiftwidth=2 expandtab: */
+/** @jsx React.DOM */
+
+var ShowListItem = require('./showlistitem.jsx'),
+sources = require('./sources'),
+xhr = require('xhr');
 
 module.exports = React.createClass({
   loadShowsFromServer: function() {
-    $.ajax({
+    xhr({
       url: this.props.url,
-      dataType: 'json',
-      success: function(data) {
-        data.forEach(function(show) {
-          show.venue = sources.sourceMap[show.venue_id];
-        });
-        this.setState({data: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
+      json: true,
+    }, function(err, resp, data) {
+      if (err) {
+        return console.error(this.props.url, status, err.toString());
+      }
+      data.forEach(function(show) {
+        show.venue = sources.sourceMap[show.venue_id];
+      });
+      this.setState({data: data});
+    }.bind(this));
   },
   getInitialState: function() {
     return {data: []};
@@ -31,8 +34,8 @@ module.exports = React.createClass({
     });
     /*jshint ignore:start */
     var showNodes = this.state.data.map(function(show) {
-      return <Show
-        show={show}></Show>;
+      return <ShowListItem
+        show={show}></ShowListItem>;
     });
     return (
       <div className='shows'>

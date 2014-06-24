@@ -3,7 +3,6 @@ var TimeBlock = require('./timeblock.jsx');
 /* ex: set tabstop=2 shiftwidth=2 expandtab: */
 /** @jsx React.DOM */
 module.exports = React.createClass({
-  _cancelTouch: false,
   onTouchTap: function(event) {
     alert('hi');
   },
@@ -16,7 +15,6 @@ module.exports = React.createClass({
     /*jshint ignore:start */
     return (
       <div
-        onTouchTap={this.onTouchTap}
         style={inlineStyle}
         className='show'>
         <div className='left-gutter pad1y'>
