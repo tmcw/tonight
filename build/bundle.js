@@ -3013,6 +3013,9 @@ module.exports = sources;
 
 },{"tonight-sources":2}],11:[function(require,module,exports){
 /** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
+
+var moment = require('moment');
+
 /** @jsx React.DOM */
 
 module.exports = React.createClass({displayName: 'exports',
@@ -3032,4 +3035,4 @@ module.exports = React.createClass({displayName: 'exports',
   }
 });
 
-},{}]},{},[7])
+},{"moment":1}]},{},[7])

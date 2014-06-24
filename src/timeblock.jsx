@@ -1,4 +1,7 @@
 /* ex: set tabstop=2 shiftwidth=2 expandtab: */
+
+var moment = require('moment');
+
 /** @jsx React.DOM */
 
 module.exports = React.createClass({

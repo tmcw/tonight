@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "watchify -t reactify src/index.jsx -o build/bundle.js"
+    "watch": "watchify -t reactify src/index.jsx -o build/bundle.js",
+    "watch-css": "catw css/reset.css css/base.css css/site.css -o css/build.css"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "reactify": "~0.13.1",
     "browserify": "~4.1.8",
-    "watchify": "~0.10.2"
+    "watchify": "~0.10.2",
+    "catw": "~0.2.0"
   },
   "dependencies": {
     "envify": "~1.2.1",
