@@ -1,35 +1,19 @@
 /* ex: set tabstop=2 shiftwidth=2 expandtab: */
 /** @jsx React.DOM */
 
-var TimeBlock = require('./timeblock.jsx');
-
 module.exports = React.createClass({
-  onTouchClose: function(event) {
+  onTouchTap: function(event) {
+    location.href = this.props.show.url;
   },
   render: function() {
     var show = this.props.show;
-    var inlineStyle = {
-      backgroundColor: show.venue.properties.color
-    };
-
     /*jshint ignore:start */
     return (
-      <div
-        style={inlineStyle}
-        className='show'>
-        <div className='left-gutter pad1y'>
-          <h3 className='align-right'>
-            <TimeBlock times={show.times} />
-          </h3>
-        </div>
-        <div className='right-content pad1'>
-          <h2 className='showTitle'>
-            {show.title}
-          </h2>
-          <div className='pad0y'>
-            {show.venue.properties.name}
-          </div>
-        </div>
+      <div className='show-detail'>
+        <span onTouchTap={this.openVenue}>venue page</span> &bull;
+        { (typeof show.minage === 'number') ?
+          (show.minage === 0 ? 'All ages' : show.minage + '+') :
+          '' }
       </div>
     );
     /*jshint ignore:end */

@@ -2951,7 +2951,30 @@ function todayStamp() {
     return 'http://dctn.s3.amazonaws.com/' + moment().format('YYYY-MM-DD') + '.json';
 }
 
-},{"./header.jsx":7,"./showlist.jsx":9,"moment":1}],9:[function(require,module,exports){
+},{"./header.jsx":7,"./showlist.jsx":10,"moment":1}],9:[function(require,module,exports){
+/** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
+/** @jsx React.DOM */
+
+module.exports = React.createClass({displayName: 'exports',
+  onTouchTap: function(event) {
+    location.href = this.props.show.url;
+  },
+  render: function() {
+    var show = this.props.show;
+    /*jshint ignore:start */
+    return (
+      React.DOM.div( {className:"show-detail"}, 
+        React.DOM.span( {onTouchTap:this.openVenue}, "venue page"), " •",
+         (typeof show.minage === 'number') ?
+          (show.minage === 0 ? 'All ages' : show.minage + '+') :
+          '' 
+      )
+    );
+    /*jshint ignore:end */
+  }
+});
+
+},{}],10:[function(require,module,exports){
 /** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
 /** @jsx React.DOM */
 
@@ -3000,28 +3023,32 @@ module.exports = React.createClass({displayName: 'exports',
   }
 });
 
-},{"./showlistitem.jsx":10,"./sources":11,"xhr":4}],10:[function(require,module,exports){
-/** @jsx React.DOM */var TimeBlock = require('./timeblock.jsx');
+},{"./showlistitem.jsx":11,"./sources":12,"xhr":4}],11:[function(require,module,exports){
+/** @jsx React.DOM */var TimeBlock = require('./timeblock.jsx'),
+  ShowDetail = require('./showdetail.jsx');
 
 /* ex: set tabstop=2 shiftwidth=2 expandtab: */
 /** @jsx React.DOM */
 module.exports = React.createClass({displayName: 'exports',
+  getInitialState: function() {
+    return { open: false };
+  },
   onTouchTap: function(event) {
-    window.location.href = this.props.show.url;
+    // window.location.href = this.props.show.url;
+    this.setState({ open: !this.state.open });
   },
   render: function() {
     var show = this.props.show;
     var inlineStyle = {
       backgroundColor: show.venue.properties.color
     };
-
     /*jshint ignore:start */
     return (
       React.DOM.div(
         {style:inlineStyle,
         onTouchTap:this.onTouchTap,
         className:"show"}, 
-        React.DOM.div( {className:"right-content pad1"}, 
+        React.DOM.div( {className:"pad1"}, 
           React.DOM.h2( {className:"showTitle"}, 
             TimeBlock( {times:show.times} ),
             show.title
@@ -3029,14 +3056,15 @@ module.exports = React.createClass({displayName: 'exports',
           React.DOM.div( {className:"pad0y minor"}, 
             show.venue.properties.name
           )
-        )
+        ),
+         this.state.open ? ShowDetail( {show:show} ) : '' 
       )
     );
     /*jshint ignore:end */
   }
 });
 
-},{"./timeblock.jsx":12}],11:[function(require,module,exports){
+},{"./showdetail.jsx":9,"./timeblock.jsx":13}],12:[function(require,module,exports){
 var sources = require('tonight-sources').sources;
 
 sources.sourceMap = {};
@@ -3047,7 +3075,7 @@ sources.features.forEach(function(feat) {
 
 module.exports = sources;
 
-},{"tonight-sources":2}],12:[function(require,module,exports){
+},{"tonight-sources":2}],13:[function(require,module,exports){
 /** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
 
 var moment = require('moment');
