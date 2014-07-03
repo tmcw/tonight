@@ -2895,15 +2895,36 @@ function once (fn) {
 },{}],7:[function(require,module,exports){
 /** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
 
+/** @jsx React.DOM */
+
+module.exports = React.createClass({displayName: 'exports',
+  render: function() {
+    /*jshint ignore:start */
+    return (
+      React.DOM.div( {className:"header"}, 
+        "dc.​you.​areinvited"
+      )
+    );
+    /*jshint ignore:end */
+  }
+});
+
+},{}],8:[function(require,module,exports){
+/** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
+
 React.addons.injectTapEventPlugin();
 React.initializeTouchEvents(true);
 
 var ShowList = require('./showlist.jsx'),
+  Header = require('./header.jsx'),
   moment = require('moment');
 
 React.renderComponent(
   /*jshint ignore:start */
-  ShowList( {url:todayStamp()} ),
+  React.DOM.div( {className:"wrapper"}, 
+    Header(null ),
+    ShowList( {url:todayStamp()} )
+  ),
   /*jshint ignore:end */
   document.getElementById('content')
 );
@@ -2912,7 +2933,7 @@ function todayStamp() {
     return 'http://dctn.s3.amazonaws.com/' + moment().format('YYYY-MM-DD') + '.json';
 }
 
-},{"./showlist.jsx":8,"moment":1}],8:[function(require,module,exports){
+},{"./header.jsx":7,"./showlist.jsx":9,"moment":1}],9:[function(require,module,exports){
 /** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
 /** @jsx React.DOM */
 
@@ -2961,14 +2982,14 @@ module.exports = React.createClass({displayName: 'exports',
   }
 });
 
-},{"./showlistitem.jsx":9,"./sources":10,"xhr":4}],9:[function(require,module,exports){
+},{"./showlistitem.jsx":10,"./sources":11,"xhr":4}],10:[function(require,module,exports){
 /** @jsx React.DOM */var TimeBlock = require('./timeblock.jsx');
 
 /* ex: set tabstop=2 shiftwidth=2 expandtab: */
 /** @jsx React.DOM */
 module.exports = React.createClass({displayName: 'exports',
   onTouchTap: function(event) {
-    alert('hi');
+    window.location.href = this.props.show.url;
   },
   render: function() {
     var show = this.props.show;
@@ -2980,6 +3001,7 @@ module.exports = React.createClass({displayName: 'exports',
     return (
       React.DOM.div(
         {style:inlineStyle,
+        onTouchTap:this.onTouchTap,
         className:"show"}, 
         React.DOM.div( {className:"right-content pad1"}, 
           React.DOM.h2( {className:"showTitle"}, 
@@ -2996,7 +3018,7 @@ module.exports = React.createClass({displayName: 'exports',
   }
 });
 
-},{"./timeblock.jsx":11}],10:[function(require,module,exports){
+},{"./timeblock.jsx":12}],11:[function(require,module,exports){
 var sources = require('tonight-sources').sources;
 
 sources.sourceMap = {};
@@ -3007,7 +3029,7 @@ sources.features.forEach(function(feat) {
 
 module.exports = sources;
 
-},{"tonight-sources":2}],11:[function(require,module,exports){
+},{"tonight-sources":2}],12:[function(require,module,exports){
 /** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
 
 var moment = require('moment');
@@ -3019,7 +3041,7 @@ module.exports = React.createClass({displayName: 'exports',
     var formatted = '?';
     if (this.props.times && this.props.times.length) {
       var firstTime = this.props.times[0];
-      var t = moment(firstTime.stamp);
+      var t = moment(firstTime.stamp).zone(0);
       formatted = t.minutes() ? t.format('h:mm') : t.format('h');
     }
     /*jshint ignore:start */
@@ -3031,4 +3053,4 @@ module.exports = React.createClass({displayName: 'exports',
   }
 });
 
-},{"moment":1}]},{},[7])
+},{"moment":1}]},{},[8])

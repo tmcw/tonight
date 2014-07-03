@@ -17,5 +17,12 @@
     </div>
     <script src='lib/react.js'></script>
     <script src='build/bundle.js'></script>
+    <script src="//cdn.ravenjs.com/1.1.15/jquery,native/raven.min.js"></script>
+    <script>
+    Raven.config('https://815bf3b01e684b638ca7066494f902d0@app.getsentry.com/26886', {
+        // we highly recommend restricting exceptions to a domain in order to filter out clutter
+        whitelistUrls: ['thisistonight.com']
+    }).install();
+    </script>
   </body>
 </html>

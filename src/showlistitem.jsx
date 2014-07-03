@@ -4,7 +4,7 @@ var TimeBlock = require('./timeblock.jsx');
 /** @jsx React.DOM */
 module.exports = React.createClass({
   onTouchTap: function(event) {
-    alert('hi');
+    window.location.href = this.props.show.url;
   },
   render: function() {
     var show = this.props.show;
@@ -16,6 +16,7 @@ module.exports = React.createClass({
     return (
       <div
         style={inlineStyle}
+        onTouchTap={this.onTouchTap}
         className='show'>
         <div className='right-content pad1'>
           <h2 className='showTitle'>

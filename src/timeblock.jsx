@@ -9,7 +9,7 @@ module.exports = React.createClass({
     var formatted = '?';
     if (this.props.times && this.props.times.length) {
       var firstTime = this.props.times[0];
-      var t = moment(firstTime.stamp);
+      var t = moment(firstTime.stamp).zone(0);
       formatted = t.minutes() ? t.format('h:mm') : t.format('h');
     }
     /*jshint ignore:start */
