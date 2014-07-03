@@ -14,7 +14,7 @@ module.exports = React.createClass({
     }
     /*jshint ignore:start */
     return (
-      <span>
+      <span className='time-block'>
         {formatted}
       </span>
     );

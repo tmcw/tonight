@@ -17,16 +17,12 @@ module.exports = React.createClass({
       <div
         style={inlineStyle}
         className='show'>
-        <div className='left-gutter pad1y'>
-          <h3 className='align-right'>
-            <TimeBlock times={show.times} />
-          </h3>
-        </div>
         <div className='right-content pad1'>
           <h2 className='showTitle'>
+            <TimeBlock times={show.times} />
             {show.title}
           </h2>
-          <div className='pad0y'>
+          <div className='pad0y minor'>
             {show.venue.properties.name}
           </div>
         </div>

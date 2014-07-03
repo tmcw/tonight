@@ -152,7 +152,7 @@ div {
 body {
     background:#222;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size:15px;
+    font-size:8vw;
     color:#eee;
 }
 
@@ -166,21 +166,26 @@ a {
 }
 
 div.show {
-    width:320px;
     position:relative;
-    height:75px;
+    width:100%;
 }
 
 #content h2 {
     overflow:hidden;
-    white-space:nowrap;
     color:#eee;
     font-weight:900;
+    font-size:9vw;
+    line-height:100%;
 }
 
 #content h3 {
     font-weight:700;
-    line-height:30px;
+}
+
+.time-block {
+    color:rgba(255, 255, 255, 0.8);
+    text-decoration:underline;
+    margin-right:0.25em;
 }
 
 .align-right {
@@ -188,15 +193,9 @@ div.show {
 }
 
 .left-gutter {
-    width:40px;
-    position:absolute;
-    top:0;
-    left:0;
+    display:inline-block;
 }
 
 .right-content {
-    width:280px;
-    position:absolute;
-    top:0;
-    right:0;
+    display:inline-block;
 }

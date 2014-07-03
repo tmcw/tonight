@@ -2981,16 +2981,12 @@ module.exports = React.createClass({displayName: 'exports',
       React.DOM.div(
         {style:inlineStyle,
         className:"show"}, 
-        React.DOM.div( {className:"left-gutter pad1y"}, 
-          React.DOM.h3( {className:"align-right"}, 
-            TimeBlock( {times:show.times} )
-          )
-        ),
         React.DOM.div( {className:"right-content pad1"}, 
           React.DOM.h2( {className:"showTitle"}, 
+            TimeBlock( {times:show.times} ),
             show.title
           ),
-          React.DOM.div( {className:"pad0y"}, 
+          React.DOM.div( {className:"pad0y minor"}, 
             show.venue.properties.name
           )
         )
@@ -3028,7 +3024,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
     /*jshint ignore:start */
     return (
-      React.DOM.span(null, 
+      React.DOM.span( {className:"time-block"}, 
         formatted
       )
     );
