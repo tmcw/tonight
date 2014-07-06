@@ -2912,15 +2912,17 @@ function once (fn) {
 
 },{}],7:[function(require,module,exports){
 /** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
-
 /** @jsx React.DOM */
 
 module.exports = React.createClass({displayName: 'exports',
   render: function() {
     /*jshint ignore:start */
     return (
-      React.DOM.div( {className:"header"}, 
-        "dc.​you.​areinvited"
+      React.DOM.div( {className:"footer"}, 
+        React.DOM.div( {className:"footer-title"}, 
+          "DCTN • ", React.DOM.a( {href:"https://twitter.com/dctnght"}, "twitter"),
+          "• ", React.DOM.a( {href:"http://eepurl.com/YrDtT"}, "stay updated")
+        )
       )
     );
     /*jshint ignore:end */
@@ -2934,14 +2936,14 @@ React.addons.injectTapEventPlugin();
 React.initializeTouchEvents(true);
 
 var ShowList = require('./showlist.jsx'),
-  Header = require('./header.jsx'),
+  Footer = require('./footer.jsx'),
   moment = require('moment');
 
 React.renderComponent(
   /*jshint ignore:start */
   React.DOM.div( {className:"wrapper"}, 
-    Header(null ),
-    ShowList( {url:todayStamp()} )
+    ShowList( {url:todayStamp()} ),
+    Footer(null )
   ),
   /*jshint ignore:end */
   document.getElementById('content')
@@ -2951,7 +2953,7 @@ function todayStamp() {
     return 'http://dctn.s3.amazonaws.com/' + moment().format('YYYY-MM-DD') + '.json';
 }
 
-},{"./header.jsx":7,"./showlist.jsx":9,"moment":1}],9:[function(require,module,exports){
+},{"./footer.jsx":7,"./showlist.jsx":9,"moment":1}],9:[function(require,module,exports){
 /** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
 /** @jsx React.DOM */
 

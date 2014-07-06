@@ -8,7 +8,7 @@
     "watch": "watchify -t reactify src/index.jsx -o build/bundle.js",
     "watch-css": "catw css/reset.css css/base.css css/site.css -o css/build.css"
   },
-  "author": "",
+  "author": "Tom MacWright",
   "license": "ISC",
   "devDependencies": {
     "reactify": "~0.13.1",
