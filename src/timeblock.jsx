@@ -1,8 +1,7 @@
 /* ex: set tabstop=2 shiftwidth=2 expandtab: */
+/** @jsx React.DOM */
 
 var moment = require('moment');
-
-/** @jsx React.DOM */
 
 module.exports = React.createClass({
   render: function() {
@@ -18,5 +17,6 @@ module.exports = React.createClass({
         {formatted}
       </span>
     );
+    /*jshint ignore:end */
   }
 });

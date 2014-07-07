@@ -4,14 +4,15 @@ var TimeBlock = require('./timeblock.jsx');
 /** @jsx React.DOM */
 module.exports = React.createClass({
   onTouchTap: function(event) {
-    window.location.href = this.props.show.url;
+    //window.location.href = this.props.show.url;
+    event.stopPropagation();
+    this.props.ontap(this.props.show);
   },
   render: function() {
     var show = this.props.show;
     var inlineStyle = {
       backgroundColor: show.venue.properties.color
     };
-
     /*jshint ignore:start */
     return (
       <div

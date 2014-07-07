@@ -42,11 +42,17 @@ div.show {
 }
 
 #content h2 {
-    overflow:hidden;
-    color:#eee;
+    color:#fff;
     font-weight:900;
     font-size:9vw;
-    line-height:100%;
+    line-height:120%;
+}
+
+#content h4 {
+    color:#fff;
+    font-weight:900;
+    font-size:7vw;
+    line-height:120%;
 }
 
 #content h3 {
@@ -69,4 +75,44 @@ div.show {
 
 .right-content {
     display:inline-block;
+}
+
+button {
+    background:rgba(255, 255, 255, 0.3);
+    font:inherit;
+    border-top:   3px solid rgba(255, 255, 255, 0.8);
+    border-left:  3px solid rgba(255, 255, 255, 0.8);
+    border-right: 3px solid rgba(255, 255, 255, 0.2);
+    border-bottom:3px solid rgba(255, 255, 255, 0.2);
+    padding:20px;
+    color:#fff;
+}
+
+.pane {
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.show-list-enter {
+  opacity: 0.01;
+  transition: opacity .5s ease-in;
+}
+
+.show-list-enter.show-list-enter-active {
+  opacity: 1;
+}
+
+.show-list-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
+
+.show-list-leave.show-list-leave-active {
+  opacity: 0.01;
+}
+
+.back-button {
+    padding:10px;
+    text-align:center;
 }

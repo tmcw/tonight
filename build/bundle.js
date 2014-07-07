@@ -2920,8 +2920,7 @@ module.exports = React.createClass({displayName: 'exports',
     return (
       React.DOM.div( {className:"footer"}, 
         React.DOM.div( {className:"footer-title"}, 
-          "DCTN • ", React.DOM.a( {href:"https://twitter.com/dctnght"}, "twitter"),
-          "• ", React.DOM.a( {href:"http://eepurl.com/YrDtT"}, "stay updated")
+          "DCTN • ", React.DOM.a( {href:"https://twitter.com/dctnght"}, "twitter"), " • ", React.DOM.a( {href:"http://eepurl.com/YrDtT"}, "stay updated")
         )
       )
     );
@@ -2936,14 +2935,12 @@ React.addons.injectTapEventPlugin();
 React.initializeTouchEvents(true);
 
 var ShowList = require('./showlist.jsx'),
-  Footer = require('./footer.jsx'),
   moment = require('moment');
 
 React.renderComponent(
   /*jshint ignore:start */
   React.DOM.div( {className:"wrapper"}, 
-    ShowList( {url:todayStamp()} ),
-    Footer(null )
+    ShowList( {url:todayStamp()} )
   ),
   /*jshint ignore:end */
   document.getElementById('content')
@@ -2953,13 +2950,71 @@ function todayStamp() {
     return 'http://dctn.s3.amazonaws.com/' + moment().format('YYYY-MM-DD') + '.json';
 }
 
-},{"./footer.jsx":7,"./showlist.jsx":9,"moment":1}],9:[function(require,module,exports){
+},{"./showlist.jsx":10,"moment":1}],9:[function(require,module,exports){
+/** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
+/** @jsx React.DOM */
+
+var TimeBlock = require('./timeblock.jsx'),
+  moment = require('moment');
+
+module.exports = React.createClass({displayName: 'exports',
+  buyTickets: function() {
+    window.open(this.props.show.tickets);
+  },
+  onTouchTap: function(event) {
+    event.stopPropagation();
+    // this.props.ontap(this.props.show);
+  },
+  render: function() {
+    var show = this.props.show;
+    var inlineStyle = {
+      backgroundColor: show.venue.properties.color
+    };
+    /*jshint ignore:start */
+    var times = show.times.map(function(time) {
+      var text = moment.utc(time.stamp).format('h:mma') + '/' + time.label;
+      return React.DOM.h4( {key:text}, text);
+    });
+    if (show.minage !== null) {
+      var minage = React.DOM.h2(null, show.minage === 0 ? 'all ages' : show.minage + '+' );
+    } else {
+      minage = '';
+    }
+    return (
+      React.DOM.div(
+        {style:inlineStyle,
+        onTouchTap:this.onTouchTap,
+        className:"show"}, 
+        React.DOM.div( {className:"right-content pad1"}, 
+          React.DOM.h2(null, 
+            show.title
+          ),
+          times,
+          React.DOM.h2(null, 
+             show.tickets ? React.DOM.button( {onTouchTap:this.buyTickets}, "buy tickets") : '' 
+          ),
+          minage,
+          React.DOM.div( {className:"pad0y minor"}, 
+            show.venue.properties.name
+          )
+        )
+      )
+    );
+    /*jshint ignore:end */
+  }
+});
+
+},{"./timeblock.jsx":13,"moment":1}],10:[function(require,module,exports){
 /** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
 /** @jsx React.DOM */
 
 var ShowListItem = require('./showlistitem.jsx'),
-sources = require('./sources'),
-xhr = require('xhr');
+  ShowDetail = require('./showdetail.jsx'),
+  sources = require('./sources'),
+  Footer = require('./footer.jsx'),
+  xhr = require('xhr');
+
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 module.exports = React.createClass({displayName: 'exports',
   loadShowsFromServer: function() {
@@ -2970,53 +3025,75 @@ module.exports = React.createClass({displayName: 'exports',
       if (err) {
         return console.error(this.props.url, status, err.toString());
       }
+      var id = 0;
       data.forEach(function(show) {
         show.venue = sources.sourceMap[show.venue_id];
+        show.id = 'h' + (++id);
+      });
+      data.sort(function(a, b) {
+        if (a.times.length && b.times.length) {
+          return a.times[0].stamp - b.times[0].stamp;
+        }
       });
       this.setState({data: data});
     }.bind(this));
   },
   getInitialState: function() {
-    return {data: []};
+    return {data: [], selected_show:null};
   },
   componentWillMount: function() {
     this.loadShowsFromServer();
   },
+  handleClick: function(show) {
+    this.setState({ selected_show: show, date: this.state.data });
+  },
+  handleDetailClick: function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.setState({ selected_show: null, date: this.state.data });
+  },
   render: function() {
-    this.state.data.sort(function(a, b) {
-      if (a.times.length && b.times.length) {
-        return a.times[0].stamp - b.times[0].stamp;
-      }
-    });
+    var handleClick = this.handleClick;
+    var handleDetailClick = this.handleDetailClick;
     /*jshint ignore:start */
-    var showNodes = this.state.data.map(function(show) {
+    var showNodes = this.state.selected_show ? [] : this.state.data.map(function(show) {
       return ShowListItem(
-        {show:show});
+        {ontap:handleClick,
+        key:show.id,
+        show:show});
     });
+    var showDetail = this.state.selected_show ?
+      React.DOM.div(null, 
+      React.DOM.h2( {className:"back-button", onTouchTap:handleDetailClick}, "back"),
+      ShowDetail(
+        {key:"show-detail",
+        show:this.state.selected_show} )) : [];
     return (
       React.DOM.div( {className:"shows"}, 
-        showNodes
+        showNodes ? showNodes : [], 
+        showDetail ? showDetail : [] 
       )
     );
     /*jshint ignore:end */
   }
 });
 
-},{"./showlistitem.jsx":10,"./sources":11,"xhr":4}],10:[function(require,module,exports){
+},{"./footer.jsx":7,"./showdetail.jsx":9,"./showlistitem.jsx":11,"./sources":12,"xhr":4}],11:[function(require,module,exports){
 /** @jsx React.DOM */var TimeBlock = require('./timeblock.jsx');
 
 /* ex: set tabstop=2 shiftwidth=2 expandtab: */
 /** @jsx React.DOM */
 module.exports = React.createClass({displayName: 'exports',
   onTouchTap: function(event) {
-    window.location.href = this.props.show.url;
+    //window.location.href = this.props.show.url;
+    event.stopPropagation();
+    this.props.ontap(this.props.show);
   },
   render: function() {
     var show = this.props.show;
     var inlineStyle = {
       backgroundColor: show.venue.properties.color
     };
-
     /*jshint ignore:start */
     return (
       React.DOM.div(
@@ -3038,7 +3115,7 @@ module.exports = React.createClass({displayName: 'exports',
   }
 });
 
-},{"./timeblock.jsx":12}],11:[function(require,module,exports){
+},{"./timeblock.jsx":13}],12:[function(require,module,exports){
 var sources = require('tonight-sources').sources;
 
 sources.sourceMap = {};
@@ -3049,12 +3126,11 @@ sources.features.forEach(function(feat) {
 
 module.exports = sources;
 
-},{"tonight-sources":2}],12:[function(require,module,exports){
+},{"tonight-sources":2}],13:[function(require,module,exports){
 /** @jsx React.DOM *//* ex: set tabstop=2 shiftwidth=2 expandtab: */
+/** @jsx React.DOM */
 
 var moment = require('moment');
-
-/** @jsx React.DOM */
 
 module.exports = React.createClass({displayName: 'exports',
   render: function() {
@@ -3070,6 +3146,7 @@ module.exports = React.createClass({displayName: 'exports',
         formatted
       )
     );
+    /*jshint ignore:end */
   }
 });
 

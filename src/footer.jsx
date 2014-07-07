@@ -7,8 +7,7 @@ module.exports = React.createClass({
     return (
       <div className='footer'>
         <div className='footer-title'>
-          DCTN &bull; <a href='https://twitter.com/dctnght'>twitter</a>
-          &bull; <a href='http://eepurl.com/YrDtT'>stay updated</a>
+          DCTN &bull; <a href='https://twitter.com/dctnght'>twitter</a> &bull; <a href='http://eepurl.com/YrDtT'>stay updated</a>
         </div>
       </div>
     );

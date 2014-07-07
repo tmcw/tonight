@@ -4,14 +4,12 @@ React.addons.injectTapEventPlugin();
 React.initializeTouchEvents(true);
 
 var ShowList = require('./showlist.jsx'),
-  Footer = require('./footer.jsx'),
   moment = require('moment');
 
 React.renderComponent(
   /*jshint ignore:start */
   <div className='wrapper'>
     <ShowList url={todayStamp()} />
-    <Footer />
   </div>,
   /*jshint ignore:end */
   document.getElementById('content')
