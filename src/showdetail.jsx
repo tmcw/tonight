@@ -43,9 +43,9 @@ module.exports = React.createClass({
             {show.title}
           </h2>
           { show.url ? <button onTouchTap={this.showPage}>venue page</button> : '' }
+          { show.tickets ? <button onTouchTap={this.buyTickets}>buy tickets</button> : '' }
           {support}
           {times}
-          { show.tickets ? <button onTouchTap={this.buyTickets}>buy tickets</button> : '' }
           {minage}
           <h3>
             {show.venue.properties.name}

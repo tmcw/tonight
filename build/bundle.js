@@ -3008,9 +3008,9 @@ module.exports = React.createClass({displayName: 'exports',
             show.title
           ),
            show.url ? React.DOM.button( {onTouchTap:this.showPage}, "venue page") : '', 
+           show.tickets ? React.DOM.button( {onTouchTap:this.buyTickets}, "buy tickets") : '', 
           support,
           times,
-           show.tickets ? React.DOM.button( {onTouchTap:this.buyTickets}, "buy tickets") : '', 
           minage,
           React.DOM.h3(null, 
             show.venue.properties.name

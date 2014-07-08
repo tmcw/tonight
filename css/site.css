@@ -64,9 +64,10 @@ h4 {
 
 button {
     background:rgba(255, 255, 255, 0.3);
-    font:inherit;
+    font-size:6vw;
+    font-weight:500;
     border:0;
-    padding:20px;
+    padding:10px 20px;
     color:#fff;
 }
 
