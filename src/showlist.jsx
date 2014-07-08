@@ -7,8 +7,6 @@ var ShowListItem = require('./showlistitem.jsx'),
   Footer = require('./footer.jsx'),
   xhr = require('xhr');
 
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
 module.exports = React.createClass({
   loadShowsFromServer: function() {
     xhr({

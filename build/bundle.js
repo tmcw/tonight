@@ -2615,6 +2615,12 @@
 },{}],2:[function(require,module,exports){
 module.exports.sources = require('./sources');
 
+module.exports.sourceMap = sourceMap = {};
+
+module.exports.sources.features.forEach(function(feat) {
+  sourceMap[feat.properties.id] = feat;
+});
+
 },{"./sources":3}],3:[function(require,module,exports){
 module.exports={
   "type": "FeatureCollection",
@@ -2624,6 +2630,7 @@ module.exports={
       "properties": {
         "name": "DC9 Nightclub",
         "shortname": "DC9",
+        "twitter": "dc9nightclub",
         "id": "dc9",
         "address": "1940 9th St NW",
         "phone": "(202) 483-5000",
@@ -2643,6 +2650,7 @@ module.exports={
         "id": "blackcat",
         "name": "Black Cat",
         "shortname": "Black Cat",
+        "twitter": "BlackCatDC",
         "phone": "2026674490",
         "address": "1811 14th St NW",
         "color": "rgb(30, 130, 76)"
@@ -2660,6 +2668,7 @@ module.exports={
       "properties": {
         "name": "Rock N Roll Hotel",
         "shortname": "RNR Hotel",
+        "twitter": "rocknrollhotel",
         "id": "rnr",
         "address": "1353 H Street N.E Washington, DC 20002",
         "phone": "2023887625",
@@ -2679,6 +2688,7 @@ module.exports={
         "name": "Velvet Lounge",
         "shortname": "Velvet Lounge",
         "id": "velvetlounge",
+        "twitter": "VelvetLoungeDC",
         "address": "915 U Street NW Washington, DC",
         "phone": "2024623213",
         "color": "rgb(185,29,71)"
@@ -2697,6 +2707,7 @@ module.exports={
         "name": "U Street Music Hall",
         "shortname": "U Street",
         "id": "ustreet",
+        "twitter": "uhalldc",
         "address": "1115 U Street NW, Washington D.C.",
         "phone": "2025881889",
         "color": "rgb(58, 83, 155)"
@@ -2715,6 +2726,7 @@ module.exports={
         "name": "9:30 Club",
         "shortname": "930",
         "id": "930",
+        "twitter": "930club",
         "address": "815 V ST. N.W. WASHINGTON DC",
         "phone": "202.265.0930",
         "color": "rgb(34, 49, 63)"
@@ -2961,6 +2973,9 @@ module.exports = React.createClass({displayName: 'exports',
   buyTickets: function() {
     window.open(this.props.show.tickets);
   },
+  showPage: function() {
+    window.open(this.props.show.url);
+  },
   onTouchTap: function(event) {
     event.stopPropagation();
     // this.props.ontap(this.props.show);
@@ -2973,10 +2988,13 @@ module.exports = React.createClass({displayName: 'exports',
     /*jshint ignore:start */
     var times = show.times.map(function(time) {
       var text = moment.utc(time.stamp).format('h:mma') + '/' + time.label;
-      return React.DOM.h4( {key:text}, text);
+      return React.DOM.h3( {key:text}, text);
+    });
+    var support = (show.supporters || []).map(function(supporter) {
+      return React.DOM.h3( {key:supporter}, supporter);
     });
     if (show.minage !== null) {
-      var minage = React.DOM.h2(null, show.minage === 0 ? 'all ages' : show.minage + '+' );
+      var minage = React.DOM.h3(null, show.minage === 0 ? 'all ages' : show.minage + '+' );
     } else {
       minage = '';
     }
@@ -2989,12 +3007,12 @@ module.exports = React.createClass({displayName: 'exports',
           React.DOM.h2(null, 
             show.title
           ),
+           show.url ? React.DOM.button( {onTouchTap:this.showPage}, "venue page") : '', 
+          support,
           times,
-          React.DOM.h2(null, 
-             show.tickets ? React.DOM.button( {onTouchTap:this.buyTickets}, "buy tickets") : '' 
-          ),
+           show.tickets ? React.DOM.button( {onTouchTap:this.buyTickets}, "buy tickets") : '', 
           minage,
-          React.DOM.div( {className:"pad0y minor"}, 
+          React.DOM.h3(null, 
             show.venue.properties.name
           )
         )
@@ -3013,8 +3031,6 @@ var ShowListItem = require('./showlistitem.jsx'),
   sources = require('./sources'),
   Footer = require('./footer.jsx'),
   xhr = require('xhr');
-
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 module.exports = React.createClass({displayName: 'exports',
   loadShowsFromServer: function() {
@@ -3105,7 +3121,7 @@ module.exports = React.createClass({displayName: 'exports',
             TimeBlock( {times:show.times} ),
             show.title
           ),
-          React.DOM.div( {className:"pad0y minor"}, 
+          React.DOM.h3(null, 
             show.venue.properties.name
           )
         )

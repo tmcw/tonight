@@ -152,7 +152,7 @@ div {
 body {
     background:#222;
     font-family: 'Helvetica Neue', sans-serif;
-    font-size:8vw;
+    font-size:4vw;
     line-height:120%;
     color:#eee;
 }
@@ -188,27 +188,37 @@ div.show {
     cursor:pointer;
 }
 
-#content h2 {
+h2 {
     color:#fff;
     font-weight:900;
     font-size:9vw;
     line-height:120%;
 }
 
-#content h4 {
-    color:#fff;
-    font-weight:900;
-    font-size:7vw;
+h3 {
+    color:#efefef;
+    font-size:6vw;
+    font-weight:500;
     line-height:120%;
 }
 
-#content h3 {
-    font-weight:700;
+h4 {
+    color:#eee;
+    font-weight:500;
+    font-size:4vw;
+    line-height:120%;
+}
+
+button {
+    background:rgba(255, 255, 255, 0.3);
+    font:inherit;
+    border:0;
+    padding:20px;
+    color:#fff;
 }
 
 .time-block {
     color:rgba(255, 255, 255, 0.8);
-    text-decoration:underline;
     margin-right:0.25em;
 }
 
@@ -222,41 +232,6 @@ div.show {
 
 .right-content {
     display:inline-block;
-}
-
-button {
-    background:rgba(255, 255, 255, 0.3);
-    font:inherit;
-    border-top:   3px solid rgba(255, 255, 255, 0.8);
-    border-left:  3px solid rgba(255, 255, 255, 0.8);
-    border-right: 3px solid rgba(255, 255, 255, 0.2);
-    border-bottom:3px solid rgba(255, 255, 255, 0.2);
-    padding:20px;
-    color:#fff;
-}
-
-.pane {
-    position:absolute;
-    top:0;
-    left:0;
-}
-
-.show-list-enter {
-  opacity: 0.01;
-  transition: opacity .5s ease-in;
-}
-
-.show-list-enter.show-list-enter-active {
-  opacity: 1;
-}
-
-.show-list-leave {
-  opacity: 1;
-  transition: opacity .5s ease-in;
-}
-
-.show-list-leave.show-list-leave-active {
-  opacity: 0.01;
 }
 
 .back-button {

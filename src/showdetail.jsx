@@ -8,6 +8,9 @@ module.exports = React.createClass({
   buyTickets: function() {
     window.open(this.props.show.tickets);
   },
+  showPage: function() {
+    window.open(this.props.show.url);
+  },
   onTouchTap: function(event) {
     event.stopPropagation();
     // this.props.ontap(this.props.show);
@@ -20,10 +23,13 @@ module.exports = React.createClass({
     /*jshint ignore:start */
     var times = show.times.map(function(time) {
       var text = moment.utc(time.stamp).format('h:mma') + '/' + time.label;
-      return <h4 key={text}>{text}</h4>;
+      return <h3 key={text}>{text}</h3>;
+    });
+    var support = (show.supporters || []).map(function(supporter) {
+      return <h3 key={supporter}>{supporter}</h3>;
     });
     if (show.minage !== null) {
-      var minage = <h2>{show.minage === 0 ? 'all ages' : show.minage + '+' }</h2>;
+      var minage = <h3>{show.minage === 0 ? 'all ages' : show.minage + '+' }</h3>;
     } else {
       minage = '';
     }
@@ -36,14 +42,14 @@ module.exports = React.createClass({
           <h2>
             {show.title}
           </h2>
+          { show.url ? <button onTouchTap={this.showPage}>venue page</button> : '' }
+          {support}
           {times}
-          <h2>
-            { show.tickets ? <button onTouchTap={this.buyTickets}>buy tickets</button> : '' }
-          </h2>
+          { show.tickets ? <button onTouchTap={this.buyTickets}>buy tickets</button> : '' }
           {minage}
-          <div className='pad0y minor'>
+          <h3>
             {show.venue.properties.name}
-          </div>
+          </h3>
         </div>
       </div>
     );

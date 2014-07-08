@@ -24,9 +24,9 @@ module.exports = React.createClass({
             <TimeBlock times={show.times} />
             {show.title}
           </h2>
-          <div className='pad0y minor'>
+          <h3>
             {show.venue.properties.name}
-          </div>
+          </h3>
         </div>
       </div>
     );
