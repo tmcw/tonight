@@ -9,7 +9,6 @@ It is a ReactJS app that presents data pulled from a JSON file on Amazon S3.
 ```sh
 $ npm install
 $ npm run watch
-$ npm run watch-css
 $ serve
 ```
 
