@@ -5,27 +5,27 @@ var TimeBlock = require('./timeblock.jsx'),
   moment = require('moment');
 
 module.exports = React.createClass({
-  buyTickets: function() {
+  buyTickets() {
     window.open(this.props.show.tickets);
   },
-  showPage: function() {
+  showPage() {
     window.open(this.props.show.url);
   },
-  onTouchTap: function(event) {
+  onTouchTap(event) {
     event.stopPropagation();
     // this.props.ontap(this.props.show);
   },
-  render: function() {
+  render() {
     var show = this.props.show;
     var inlineStyle = {
       backgroundColor: show.venue.properties.color
     };
     /*jshint ignore:start */
-    var times = show.times.map(function(time) {
+    var times = show.times.map((time) => {
       var text = moment.utc(time.stamp).format('h:mma') + '/' + time.label;
       return <h3 key={text}>{text}</h3>;
     });
-    var support = (show.supporters || []).map(function(supporter) {
+    var support = (show.supporters || []).map((supporter) => {
       return <h3 key={supporter}>{supporter}</h3>;
     });
     if (show.minage !== null) {

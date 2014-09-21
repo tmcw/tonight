@@ -4,7 +4,7 @@
 var moment = require('moment');
 
 module.exports = React.createClass({
-  render: function() {
+  render() {
     var formatted = '?';
     if (this.props.times && this.props.times.length) {
       var firstTime = this.props.times[0];

@@ -4,9 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "watchify -t reactify src/index.jsx -o build/bundle.js",
+    "start": "serve & npm run watch-d & npm run watchify",
+    "watch-d": "watchify -d src/index.jsx -o build/bundle.js",
+    "watch": "watchify src/index.jsx -o build/bundle.js",
     "watch-css": "catw css/reset.css css/base.css css/site.css -o css/build.css"
+  },
+  "browserify": {
+    "transform": [
+      "reactify",
+      "es6ify"
+    ]
   },
   "author": "Tom MacWright",
   "license": "ISC",
@@ -14,11 +21,13 @@
     "reactify": "~0.13.1",
     "browserify": "~4.1.8",
     "watchify": "~0.10.2",
-    "catw": "~0.2.0"
+    "catw": "~0.2.0",
+    "serve": "~1.4.0"
   },
   "dependencies": {
     "envify": "~1.2.1",
     "xhr": "~1.9.0",
-    "moment": "~2.7.0"
+    "moment": "~2.7.0",
+    "es6ify": "https://github.com/tmcw/es6ify/archive/jsx.tar.gz"
   }
 }

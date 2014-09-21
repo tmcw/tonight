@@ -3,12 +3,12 @@ var TimeBlock = require('./timeblock.jsx');
 /* ex: set tabstop=2 shiftwidth=2 expandtab: */
 /** @jsx React.DOM */
 module.exports = React.createClass({
-  onTouchTap: function(event) {
+  onTouchTap(event) {
     //window.location.href = this.props.show.url;
     event.stopPropagation();
     this.props.ontap(this.props.show);
   },
-  render: function() {
+  render() {
     var show = this.props.show;
     var inlineStyle = {
       backgroundColor: show.venue.properties.color

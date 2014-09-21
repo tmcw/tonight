@@ -8,7 +8,7 @@ var ShowListItem = require('./showlistitem.jsx'),
   xhr = require('xhr');
 
 module.exports = React.createClass({
-  loadShowsFromServer: function() {
+  loadShowsFromServer() {
     xhr({
       url: this.props.url,
       json: true,
@@ -17,11 +17,11 @@ module.exports = React.createClass({
         return console.error(this.props.url, status, err.toString());
       }
       var id = 0;
-      data.forEach(function(show) {
+      data.forEach((show) => {
         show.venue = sources.sourceMap[show.venue_id];
         show.id = 'h' + (++id);
       });
-      data.sort(function(a, b) {
+      data.sort((a, b) => {
         if (a.times.length && b.times.length) {
           return a.times[0].stamp - b.times[0].stamp;
         }
@@ -29,21 +29,21 @@ module.exports = React.createClass({
       this.setState({data: data});
     }.bind(this));
   },
-  getInitialState: function() {
+  getInitialState() {
     return {data: [], selected_show:null};
   },
-  componentWillMount: function() {
+  componentWillMount() {
     this.loadShowsFromServer();
   },
-  handleClick: function(show) {
+  handleClick(show) {
     this.setState({ selected_show: show, date: this.state.data });
   },
-  handleDetailClick: function(event) {
+  handleDetailClick(event) {
     event.stopPropagation();
     event.preventDefault();
     this.setState({ selected_show: null, date: this.state.data });
   },
-  render: function() {
+  render() {
     var handleClick = this.handleClick;
     var handleDetailClick = this.handleDetailClick;
     /*jshint ignore:start */
@@ -59,8 +59,15 @@ module.exports = React.createClass({
       <ShowDetail
         key='show-detail'
         show={this.state.selected_show} /></div> : [];
+    var tweetStyle = {
+      padding: 10,
+      textAlign: 'center'
+    };
     return (
       <div className='shows'>
+        <div style={tweetStyle}>
+          <a href='http://twitter.com/dctnght'>@dctnght</a>
+        </div>
         {showNodes ? showNodes : [] }
         {showDetail ? showDetail : [] }
       </div>

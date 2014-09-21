@@ -2,7 +2,7 @@
 /** @jsx React.DOM */
 
 module.exports = React.createClass({
-  render: function() {
+  render() {
     /*jshint ignore:start */
     return (
       <div className='footer'>
