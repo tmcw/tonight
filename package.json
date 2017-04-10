@@ -10,13 +10,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "reactify": "~0.13.1",
-    "browserify": "~4.1.8",
-    "watchify": "~0.10.2"
+    "reactify": "~1.1.1",
+    "browserify": "~14.3.0",
+    "watchify": "~3.9.0"
   },
   "dependencies": {
-    "envify": "~1.2.1",
-    "xhr": "~1.9.0",
-    "moment": "~2.7.0"
+    "envify": "~4.0.0",
+    "xhr": "~2.4.0",
+    "moment": "~2.18.1"
   }
 }
